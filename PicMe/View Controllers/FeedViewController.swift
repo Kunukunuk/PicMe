@@ -95,28 +95,6 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.reloadData()
     }
     
-    // fetch posts
-    /*func fetchPosts(){
-        let query = PFQuery(className: "Post")
-        query.addDescendingOrder("createdAt")
-        query.includeKey("author")
-        
-        query.findObjectsInBackground(){
-            (posts: [PFObject]?, error: Error?) in
-            if error == nil {
-                if let newfeed = posts {
-                    self.array = newfeed
-                    print("Posts are showing the new feed now.")
-                }
-            } else {
-                print("Problem fetching posts: \(error!.localizedDescription)")
-            }
-        }
-      
-        self.tableView.reloadData()
-        self.refreshControl.endRefreshing()
-    }*/
-    
     func fetchPosts() {
         let query = Post.query()
         query?.order(byDescending: "createdAt")
@@ -164,5 +142,4 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         alertController.addAction(logoutButton)
         alertController.addAction(cancelButton)
     }
-    
 }
