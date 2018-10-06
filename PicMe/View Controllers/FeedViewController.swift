@@ -73,13 +73,16 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let user = posts["author"] as? PFUser
         cell.usernameLabel.text = user?.username
         cell.avatarImg.file = posts["avatarImg"] as? PFFile
-        cell.postImage.file = posts["postImg"] as? PFFile
+        cell.avatarImg.loadInBackground()
+        cell.postImage.file = posts["postImage"] as? PFFile
+        cell.postImage.loadInBackground()
         cell.captionLabel.text = posts["caption"] as? String
         cell.dateLabel.text = posts["createdAt"] as? String
         return cell
     }
     
     @objc func refreshScreen() {
+        tableView.reloadData()
        fetchPosts()
     }
     
@@ -121,10 +124,11 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         query?.findObjectsInBackground { (allPosts, error) in
             if error == nil {
+                self.array.removeAll()
                 if let posts = allPosts {
                     for post in posts {
                         self.array.append(post)
-                        print("Posts are showing the new feed now.")
+                        //print("Posts are showing the new feed now.")
                     }
                 }
             } else {
