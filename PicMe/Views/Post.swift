@@ -24,13 +24,13 @@ class Post: PFObject, PFSubclassing {
         return "Post"
     }
     
-    class func postUserImage(image: UIImage?, withCaption caption: String?, withCompletion completion: PFBooleanResultBlock?) {
+    class func postUserImage(profile: UIImage? = UIImage(named: "home"),image: UIImage?, withCaption caption: String?, withCompletion completion: PFBooleanResultBlock?) {
         let post = Post()
         post.author = PFUser.current()!
         post.caption = caption!
         post.likesCount = 0
         post.commentsCount = 0
-        post.avatarImg = getPFFileFromImage(image: image)!
+        post.avatarImg = getPFFileFromImage(image: profile)!
         post.postImage = getPFFileFromImage(image: image)!
         post.saveInBackground(block: completion)
     }
